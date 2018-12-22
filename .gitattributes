@@ -1,0 +1,2 @@
+/tools/bazel filter=lfs diff=lfs merge=lfs -text
+/tools/bazel-complete.bash filter=lfs diff=lfs merge=lfs -text
