@@ -1,0 +1,6 @@
+#! /bin/bash
+set -euo pipefail
+
+LD_LIBRARY_PATH="external/sysroot_amd64_xenial_linux_gnu/usr/lib/x86_64-linux-gnu" \
+ LIBRARY_PATH="external/sysroot_amd64_xenial_linux_gnu/usr/lib/x86_64-linux-gnu" \
+ exec external/clang_toolchain/bin/clang --target=x86_64-linux-gnu "$@"

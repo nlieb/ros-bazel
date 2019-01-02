@@ -1,0 +1,7 @@
+bazel-bin
+bazel-genfiles
+bazel-out
+bazel-sync
+bazel-testlogs
+
+third_party/genmsg

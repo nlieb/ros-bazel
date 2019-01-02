@@ -1,0 +1,145 @@
+# Copyright 2018 The Bazel Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+major_version: "unknown"
+minor_version: ""
+
+toolchain {
+  toolchain_identifier: "cc-clang-linux"
+  abi_version: "clang"
+  abi_libc_version: "glibc_unknown"
+  compiler: "clang"
+  host_system_name: "x86_64-linux-gnu"
+#  needsPic: true
+  supports_fission: false
+  supports_interface_shared_objects: false
+  supports_start_end_lib: true
+  supports_gold_linker: false
+  target_libc: "glibc_unknown"
+  target_cpu: "k8"
+  target_system_name: "x86_64-linux-gnu"
+
+  builtin_sysroot: ""
+  # builtin_sysroot: "external/sysroot_amd64_xenial_linux_gnu"
+
+  # Working with symlinks; anticipated to be a future default.
+  # compiler_flag: "-no-canonical-prefixes"
+  # linker_flag: "-no-canonical-prefixes"
+
+  # Reproducibility.
+  unfiltered_cxx_flag: "-Wno-builtin-macro-redefined"
+  unfiltered_cxx_flag: "-D__DATE__=\"redacted\""
+  unfiltered_cxx_flag: "-D__TIMESTAMP__=\"redacted\""
+  unfiltered_cxx_flag: "-D__TIME__=\"redacted\""
+  # unfiltered_cxx_flag: "-fdebug-prefix-map=%{toolchain_path_prefix}=%{debug_toolchain_path_prefix}"
+
+  # Security
+  compiler_flag: "-U_FORTIFY_SOURCE"
+  compiler_flag: "-fstack-protector"
+  compiler_flag: "-fcolor-diagnostics"
+  compiler_flag: "-fno-omit-frame-pointer"
+
+  # Diagnostics
+  compiler_flag: "-Wall"
+
+  compiler_flag: "--sysroot=external/sysroot_amd64_xenial_linux_gnu"
+  compiler_flag: "-isystem"
+  compiler_flag: "external/clang_toolchain/include/c++/v1"
+  compiler_flag: "-isystem"
+  compiler_flag: "external/clang_toolchain/lib/clang/7.0.0/include"
+  compiler_flag: "-isystem"
+  compiler_flag: "external/sysroot_amd64_xenial_linux_gnu/usr/include"
+  compiler_flag: "-B/usr/lib/x86_64-linux-gnu"
+  # compiler_flag: "-v"
+
+  # Syntax for include directories is mentioned at:
+  # https://github.com/bazelbuild/bazel/blob/d61a185de8582d29dda7525bb04d8ffc5be3bd11/src/main/java/com/google/devtools/build/lib/rules/cpp/CcToolchain.java#L125
+  # cxx_builtin_include_directory: "external/clang_toolchain/include/c++/v1"
+  # cxx_builtin_include_directory: "external/clang_toolchain/lib/clang/7.0.0/include"
+  # cxx_builtin_include_directory: "%sysroot%/usr/include/"
+  # cxx_builtin_include_directory: "%sysroot%/usr/include/x86_64-linux-gnu"
+  # cxx_builtin_include_directory: "external/sysroot_amd64_xenial_linux_gnu/usr/include/x86_64-linux-gnu/bits"
+  # cxx_builtin_include_directory: "external/sysroot_amd64_xenial_linux_gnu/usr/include/x86_64-linux-gnu/sys"
+  # cxx_builtin_include_directory: "external/sysroot_amd64_xenial_linux_gnu/usr/include/x86_64-linux-gnu/gnu"
+  # cxx_builtin_include_directory: "/usr/include"
+  # cxx_builtin_include_directory: "/usr/local/include"
+
+  linker_flag: "--sysroot=external/sysroot_amd64_xenial_linux_gnu"
+  linker_flag: "-L"
+  linker_flag: "external/clang_toolchain/lib"
+  linker_flag: "-L"
+  linker_flag: "external/clang_toolchain/lib/clang/7.0.0/lib/linux"
+  linker_flag: "-L"
+  linker_flag: "external/sysroot_amd64_xenial_linux_gnu/usr/lib/x86_64-linux-gnu"
+  linker_flag: "-Bexternal/sysroot_amd64_xenial_linux_gnu/usr/lib/x86_64-linux-gnu"
+
+  # linker_flag: "-v"
+
+  # C++
+  cxx_flag: "-std=c++17"
+  cxx_flag: "-stdlib=libc++"
+  # The linker has no way of knowing if there are C++ objects; so we always link C++ libraries.
+  linker_flag: "-l:libc++.a"
+  linker_flag: "-l:libc++abi.a"
+  linker_flag: "-l:libunwind.a"
+  cxx_flag: "-DLIBCXX_USE_COMPILER_RT=YES"
+  linker_flag: "-rtlib=compiler-rt"
+  linker_flag: "-lpthread"  # For libunwind
+  linker_flag: "-ldl"  # For libunwind
+
+  # Linker
+  linker_flag: "-lm"
+  linker_flag: "-fuse-ld=lld"
+  linker_flag: "-Wl,--build-id=md5"
+  linker_flag: "-Wl,--hash-style=gnu"
+
+  objcopy_embed_flag: "-I"
+  objcopy_embed_flag: "binary"
+
+  tool_path {name: "ld" path: "bin/lld" }
+  tool_path {name: "gcc" path: "bin/clang" }
+  tool_path {name: "cpp" path: "bin/clang-cpp" }
+  #tool_path {name: "dwp" path: "bin/llvm-dwp" }
+  tool_path {name: "gcov" path: "bin/llvm-profdata" }
+  tool_path {name: "nm" path: "bin/llvm-nm" }
+  tool_path {name: "objcopy" path: "bin/llvm-objcopy" }
+  tool_path {name: "objdump" path: "bin/llvm-objdump" }
+  tool_path {name: "strip" path: "bin/llvm-strip" }
+  tool_path {name: "ar" path: "bin/llvm-ar" }
+
+  #action_config {
+  #  config_name: "c++-compile-env"
+  #  action_name: "c++-compile"
+  #  env_set {
+  #    env_entry: {key: "LIBRARY_PATH" value: "/usr/lib/x86_64-linux-gnu"}
+  #  }
+  #}
+
+  compilation_mode_flags {
+    mode: DBG
+    compiler_flag: "-g"
+    compiler_flag: "-fstandalone-debug"
+  }
+
+  compilation_mode_flags {
+    mode: OPT
+    compiler_flag: "-g0"
+    compiler_flag: "-O2"
+    compiler_flag: "-D_FORTIFY_SOURCE=1"
+    compiler_flag: "-DNDEBUG"
+    compiler_flag: "-ffunction-sections"
+    compiler_flag: "-fdata-sections"
+    linker_flag: "-Wl,--gc-sections"
+  }
+}

@@ -1,0 +1,5 @@
+build --announce_rc
+build --crosstool_top=//third_party/clang_toolchain
+build --incompatible_remove_native_http_archive=false
+build --sandbox_block_path=/usr
+build --sandbox_block_path=/opt
