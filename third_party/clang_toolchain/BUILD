@@ -16,12 +16,13 @@ licenses(["notice"])
 package(default_visibility = ["//visibility:public"])
 
 filegroup(name = "empty")
+
 filegroup(
     name = "all",
     srcs = glob(["bin/*"]) + [
         "@clang_toolchain//:all",
     ],
- )
+)
 
 cc_toolchain_suite(
     name = "clang_toolchain",
@@ -33,15 +34,14 @@ cc_toolchain_suite(
 
 cc_toolchain(
     name = "cc-clang-linux",
-    toolchain_identifier = "cc-clang-linux",
-    cpu = "k8",
     all_files = ":all",
     compiler_files = ":all",
+    cpu = "k8",
     dwp_files = ":all",
     dynamic_runtime_libs = [":empty"],
     linker_files = ":all",
     objcopy_files = ":all",
     static_runtime_libs = [":empty"],
     strip_files = ":all",
-#    supports_param_files = 1,
+    toolchain_identifier = "cc-clang-linux",
 )

@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 
+#include "third_party/std_msgs/Bool.h"
+
 std::string get_greet(const std::string& who) {
   return "Hello " + who;
 }
@@ -18,5 +20,8 @@ int main(int argc, char** argv) {
   }
   std::cout << get_greet(who) << std::endl;
   print_localtime();
+
+  std_msgs::Bool ass;
+
   return 0;
 }

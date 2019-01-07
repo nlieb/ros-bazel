@@ -1,15 +1,14 @@
-
 new_http_archive(
-  name = 'clang_toolchain',
-  url = 'http://releases.llvm.org/7.0.0/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz',
-  build_file = 'BUILD.clang-toolchain',
-  strip_prefix = "clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-14.04",
+    name = "clang_toolchain",
+    build_file = "BUILD.clang-toolchain",
+    strip_prefix = "clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-14.04",
+    url = "http://releases.llvm.org/7.0.0/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz",
 )
 
 new_local_repository(
     name = "sysroot_amd64_xenial_linux_gnu",
-    path = "/home/nathan/trusty-sysroot",
     build_file = "BUILD.sysroot",
+    path = "/home/nathan/trusty-sysroot",
 )
 
 new_http_archive(
@@ -34,7 +33,20 @@ new_http_archive(
     ],
 )
 
-SOURCEFORGE_MIRRORS = ["phoenixnap", "newcontinuum", "cfhcable", "superb-sea2", "cytranet", "iweb", "gigenet", "ayera", "astuteinternet", "pilotfiber", "svwh"]
+SOURCEFORGE_MIRRORS = [
+    "phoenixnap",
+    "newcontinuum",
+    "cfhcable",
+    "superb-sea2",
+    "cytranet",
+    "iweb",
+    "gigenet",
+    "ayera",
+    "astuteinternet",
+    "pilotfiber",
+    "svwh",
+]
+
 new_http_archive(
     name = "org_lzma_lzma",
     build_file = "BUILD.lzma",
@@ -42,6 +54,23 @@ new_http_archive(
     strip_prefix = "xz-5.2.3",
     urls = [
         "https://%s.dl.sourceforge.net/project/lzmautils/xz-5.2.3.tar.gz" % m
+        for m in SOURCEFORGE_MIRRORS
+    ],
+)
+
+git_repository(
+    name = "com_github_nelhage_rules_boost",
+    commit = "6d6fd834281cb8f8e758dd9ad76df86304bf1869",
+    remote = "https://github.com/nelhage/rules_boost",
+)
+
+new_http_archive(
+    name = "boost",
+    build_file = "@com_github_nelhage_rules_boost//:BUILD.boost",
+    sha256 = "8aa4e330c870ef50a896634c931adf468b21f8a69b77007e45c444151229f665",
+    strip_prefix = "boost_1_67_0",
+    urls = [
+        "https://%s.dl.sourceforge.net/project/boost/boost/1.67.0/boost_1_67_0.tar.gz" % m
         for m in SOURCEFORGE_MIRRORS
     ],
 )

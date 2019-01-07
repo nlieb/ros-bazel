@@ -34,8 +34,8 @@ toolchain {
   # builtin_sysroot: "external/sysroot_amd64_xenial_linux_gnu"
 
   # Working with symlinks; anticipated to be a future default.
-  # compiler_flag: "-no-canonical-prefixes"
-  # linker_flag: "-no-canonical-prefixes"
+  compiler_flag: "-no-canonical-prefixes"
+  linker_flag: "-no-canonical-prefixes"
 
   # Reproducibility.
   unfiltered_cxx_flag: "-Wno-builtin-macro-redefined"
@@ -62,18 +62,6 @@ toolchain {
   compiler_flag: "external/sysroot_amd64_xenial_linux_gnu/usr/include"
   compiler_flag: "-B/usr/lib/x86_64-linux-gnu"
   # compiler_flag: "-v"
-
-  # Syntax for include directories is mentioned at:
-  # https://github.com/bazelbuild/bazel/blob/d61a185de8582d29dda7525bb04d8ffc5be3bd11/src/main/java/com/google/devtools/build/lib/rules/cpp/CcToolchain.java#L125
-  # cxx_builtin_include_directory: "external/clang_toolchain/include/c++/v1"
-  # cxx_builtin_include_directory: "external/clang_toolchain/lib/clang/7.0.0/include"
-  # cxx_builtin_include_directory: "%sysroot%/usr/include/"
-  # cxx_builtin_include_directory: "%sysroot%/usr/include/x86_64-linux-gnu"
-  # cxx_builtin_include_directory: "external/sysroot_amd64_xenial_linux_gnu/usr/include/x86_64-linux-gnu/bits"
-  # cxx_builtin_include_directory: "external/sysroot_amd64_xenial_linux_gnu/usr/include/x86_64-linux-gnu/sys"
-  # cxx_builtin_include_directory: "external/sysroot_amd64_xenial_linux_gnu/usr/include/x86_64-linux-gnu/gnu"
-  # cxx_builtin_include_directory: "/usr/include"
-  # cxx_builtin_include_directory: "/usr/local/include"
 
   linker_flag: "--sysroot=external/sysroot_amd64_xenial_linux_gnu"
   linker_flag: "-L"
