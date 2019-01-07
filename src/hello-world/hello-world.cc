@@ -21,7 +21,10 @@ int main(int argc, char** argv) {
   std::cout << get_greet(who) << std::endl;
   print_localtime();
 
-  std_msgs::Bool ass;
+  std_msgs::Bool x;
+  x.data = false;
+
+  std::cout << x << std::endl;
 
   return 0;
 }

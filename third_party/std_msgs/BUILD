@@ -29,19 +29,30 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "std_msg_deps",
+    deps = [
+        "//third_party/cpp_common",
+        "//third_party/roscpp_serialization",
+        "//third_party/roscpp_traits",
+    ],
+)
+
 rosmsg_library(
     name = "bool",
     srcs = ["msg/Bool.msg"],
 )
 
 cc_rosmsg_library(
-    name = "Bool",
+    name = "cc_bool",
     src = "msg/Bool.msg",
     pkg = "std_msgs",
     #deps = [""],
 )
 
 cc_library(
-    name = "std_msgs_bool",
-    hdrs = ["Bool"],
+    name = "Bool",
+    srcs = [":cc_bool"],
+    linkstatic = 1,
+    deps = [":std_msg_deps"],
 )

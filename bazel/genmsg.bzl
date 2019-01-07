@@ -23,7 +23,6 @@ def _rosmsg_library_impl(ctx):
 rosmsg_library = rule(
     implementation = _rosmsg_library_impl,
     attrs = {
-        #        "pkg": attr.string(mandatory = True),
         "srcs": attr.label_list(allow_files = True),
         "deps": attr.label_list(),
     },
@@ -31,19 +30,24 @@ rosmsg_library = rule(
 
 def _cc_rosmsg_library_impl(ctx):
     gen_cpp = ctx.executable._gen_cpp
-    out = ctx.outputs.out
+    print(ctx.build_file_path)
     trans_srcs = get_transitive_srcs([ctx.file.src], ctx.attr.deps)
     pkg = ctx.attr.pkg
     srcs_list = trans_srcs.to_list()
+    src_filename = ctx.file.src.basename
+    out_filename = src_filename.split(".")[-2] + ".h"
+
+    out = ctx.actions.declare_file(out_filename)
     ctx.actions.run(
         executable = gen_cpp,
         arguments = ["-p%s" % pkg, "-o%s" % out.dirname] +
-                    ["-I" + src.path for src in srcs_list] +  # TODO: remove dups
+                    ["-I" + src.dirname for src in srcs_list] +  # TODO: remove dups
                     [ctx.file.src.path],
         inputs = srcs_list,
         tools = [gen_cpp],
         outputs = [out],
     )
+    return [DefaultInfo(files = depset([out]))]
 
 cc_rosmsg_library = rule(
     implementation = _cc_rosmsg_library_impl,
@@ -58,5 +62,4 @@ cc_rosmsg_library = rule(
             cfg = "host",
         ),
     },
-    outputs = {"out": "%{name}.h"},
 )

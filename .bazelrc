@@ -12,4 +12,4 @@ build --incompatible_remove_native_git_repository=false
 
 build --sandbox_block_path=/opt
 
-build --experimental_cc_skylark_api_enabled_packages=bazel
+# build --experimental_cc_skylark_api_enabled_packages=bazel
