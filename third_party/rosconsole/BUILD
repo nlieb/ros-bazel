@@ -1,20 +1,20 @@
 licenses(["notice"])  # BSD
 
-cc_library(
-    name = "rosconsole_glog",
-    srcs = [
-        "src/rosconsole/impl/rosconsole_glog.cpp",
-    ],
-    hdrs = [
-        "include/ros/console.h",
-        "include/ros/console_backend.h",
-        "include/rosconsole/macros_generated.h",
-    ],
-    strip_include_prefix = "//third_party/rosconsole/include",
-    deps = [
-        "//third_party/cpp_common",
-    ],
-)
+#cc_library(
+#    name = "rosconsole_glog",
+#    srcs = [
+#        "src/rosconsole/impl/rosconsole_glog.cpp",
+#    ],
+#    hdrs = [
+#        "include/ros/console.h",
+#        "include/ros/console_backend.h",
+#        "include/rosconsole/macros_generated.h",
+#    ],
+#    strip_include_prefix = "//third_party/rosconsole/include",
+#    deps = [
+#        "//third_party/cpp_common",
+#    ],
+#)
 
 cc_library(
     name = "rosconsole_print",

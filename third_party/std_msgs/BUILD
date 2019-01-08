@@ -4,30 +4,30 @@ package(default_visibility = ["//visibility:public"])
 
 load("//bzl:genmsg.bzl", "cc_rosmsg_library")
 
-cc_library(
-    name = "std_msgs_builtin",
-    srcs = [],
-    hdrs = [
-        "builtin_bool.h",
-        "builtin_double.h",
-        "builtin_float.h",
-        "builtin_int16.h",
-        "builtin_int32.h",
-        "builtin_int64.h",
-        "builtin_int8.h",
-        "builtin_string.h",
-        "builtin_uint16.h",
-        "builtin_uint32.h",
-        "builtin_uint64.h",
-        "builtin_uint8.h",
-        "header_deprecated_def.h",
-        "trait_macros.h",
-    ],
-    strip_include_prefix = "//third_party/std_msgs/include",
-    visibility = ["//visibility:public"],
-    deps = [
-    ],
-)
+#cc_library(
+#    name = "std_msgs_builtin",
+#    srcs = [],
+#    hdrs = [
+#        "include/std_msgs/builtin_bool.h",
+#        "include/std_msgs/builtin_double.h",
+#        "include/std_msgs/builtin_float.h",
+#        "include/std_msgs/builtin_int16.h",
+#        "include/std_msgs/builtin_int32.h",
+#        "include/std_msgs/builtin_int64.h",
+#        "include/std_msgs/builtin_int8.h",
+#        "include/std_msgs/builtin_string.h",
+#        "include/std_msgs/builtin_uint16.h",
+#        "include/std_msgs/builtin_uint32.h",
+#        "include/std_msgs/builtin_uint64.h",
+#        "include/std_msgs/builtin_uint8.h",
+#        "include/std_msgs/header_deprecated_def.h",
+#        "include/std_msgs/trait_macros.h",
+#    ],
+#    strip_include_prefix = "//third_party/std_msgs/include",
+#    visibility = ["//visibility:public"],
+#    deps = [
+#    ],
+#)
 
 cc_library(
     name = "std_msg_deps",
