@@ -27,3 +27,7 @@ The core of ROS C++ works:
 - roscpp pub/sub communication
 
 *Python is not supported*.
+
+## IDE Support
+
+Works well with CLion 2018.2.7 and version `2018.12.03.0.2` of the Bazel plugin found [here](https://plugins.jetbrains.com/plugin/9554-bazel). We recommend [Jetbrains Toolbox](https://www.jetbrains.com/toolbox/) for selecting a specific version of CLion.
