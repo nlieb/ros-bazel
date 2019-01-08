@@ -11,7 +11,7 @@ export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
 ```
 
-Run (in separate terms):
+Run (each line in separate terminals):
 
 ```bash
 roscore
