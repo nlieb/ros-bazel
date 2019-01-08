@@ -24,6 +24,6 @@ bazel run //ros/listener
 The core of ROS C++ works:
 - Msg generation
 - Srv generation
-- roscpp client communication
+- roscpp pub/sub communication
 
 *Python is not supported*.
