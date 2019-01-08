@@ -2,7 +2,7 @@ licenses(["notice"])  # BSD
 
 package(default_visibility = ["//visibility:public"])
 
-load("//bazel:genmsg.bzl", "cc_rosmsg_library", "rosmsg_library")
+load("//bzl:genmsg.bzl", "cc_rosmsg_library")
 
 cc_library(
     name = "std_msgs_builtin",
@@ -38,21 +38,46 @@ cc_library(
     ],
 )
 
-rosmsg_library(
-    name = "bool",
-    srcs = ["msg/Bool.msg"],
-)
-
 cc_rosmsg_library(
     name = "cc_bool",
     src = "msg/Bool.msg",
     pkg = "std_msgs",
-    #deps = [""],
 )
 
 cc_library(
     name = "Bool",
-    srcs = [":cc_bool"],
+    hdrs = [":cc_bool"],
     linkstatic = 1,
+    strip_include_prefix = "//third_party",
+    deps = [":std_msg_deps"],
+)
+
+cc_rosmsg_library(
+    name = "cc_header",
+    src = "msg/Header.msg",
+    pkg = "std_msgs",
+)
+
+cc_library(
+    name = "Header",
+    hdrs = [":cc_header"],
+    linkstatic = 1,
+    strip_include_prefix = "//third_party",
+    deps = [":std_msg_deps"],
+)
+
+# String
+
+cc_rosmsg_library(
+    name = "cc_string",
+    src = "msg/String.msg",
+    pkg = "std_msgs",
+)
+
+cc_library(
+    name = "String",
+    hdrs = [":cc_string"],
+    linkstatic = 1,
+    strip_include_prefix = "//third_party",
     deps = [":std_msg_deps"],
 )
