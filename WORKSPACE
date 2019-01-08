@@ -1,19 +1,19 @@
 new_http_archive(
     name = "clang_toolchain",
-    build_file = "BUILD.clang-toolchain",
+    build_file = "third_party/BUILD.clang-toolchain",
     strip_prefix = "clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-14.04",
     url = "http://releases.llvm.org/7.0.0/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz",
 )
 
 new_local_repository(
     name = "sysroot_amd64_xenial_linux_gnu",
-    build_file = "BUILD.sysroot",
+    build_file = "third_party/BUILD.sysroot",
     path = "/home/nathan/trusty-sysroot",
 )
 
 new_http_archive(
     name = "net_zlib_zlib",
-    build_file = "BUILD.zlib",
+    build_file = "third_party/BUILD.zlib",
     sha256 = "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1",
     strip_prefix = "zlib-1.2.11",
     urls = [
@@ -24,7 +24,7 @@ new_http_archive(
 
 new_http_archive(
     name = "org_bzip_bzip2",
-    build_file = "BUILD.bzip2",
+    build_file = "third_party/BUILD.bzip2",
     sha256 = "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd",
     strip_prefix = "bzip2-1.0.6",
     urls = [
@@ -49,7 +49,7 @@ SOURCEFORGE_MIRRORS = [
 
 new_http_archive(
     name = "org_lzma_lzma",
-    build_file = "BUILD.lzma",
+    build_file = "third_party/BUILD.lzma",
     sha256 = "71928b357d0a09a12a4b4c5fafca8c31c19b0e7d3b8ebb19622e96f26dbf28cb",
     strip_prefix = "xz-5.2.3",
     urls = [
