@@ -4,7 +4,7 @@
 
 Install Bazel: https://docs.bazel.build/versions/master/install-ubuntu.html#install-with-installer-ubuntu
 
-Disable ccache if it is installed (temporarily):
+Ccache conflicts with Bazel. If it is installed, disabled by running this in every terminal using Bazel, or add it to your `.bashrc`:
 
 ```bash
 export CC=/usr/bin/gcc
