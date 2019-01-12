@@ -1,6 +1,6 @@
 licenses(["notice"])  # BSD
 
-load("//bzl:genmsg.bzl", "cc_rosmsg_library")
+load("//bzl:genmsg.bzl", "gencpp_library")
 
 cc_library(
     name = "libros",
@@ -169,13 +169,13 @@ cc_library(
     ],
 )
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_logger",
     src = "msg/Logger.msg",
     pkg = "roscpp",
 )
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_get_loggers",
     src = "srv/GetLoggers.srv",
     pkg = "roscpp",
@@ -190,7 +190,7 @@ cc_library(
     deps = [":std_msg_deps"],
 )
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_set_logger_level",
     src = "srv/SetLoggerLevel.srv",
     pkg = "roscpp",
@@ -204,7 +204,7 @@ cc_library(
     deps = [":std_msg_deps"],
 )
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_empty_srv",
     src = "srv/Empty.srv",
     pkg = "roscpp",

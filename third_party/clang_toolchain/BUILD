@@ -13,35 +13,35 @@
 # limitations under the License.
 licenses(["notice"])
 
-package(default_visibility = ["//visibility:public"])
-
-filegroup(name = "empty")
-
-filegroup(
-    name = "all",
-    srcs = glob(["bin/*"]) + [
-        "@clang_toolchain//:all",
-    ],
-)
-
-cc_toolchain_suite(
-    name = "clang_toolchain",
-    toolchains = {
-        "k8": ":cc-clang-linux",
-        "k8|clang": ":cc-clang-linux",
-    },
-)
-
-cc_toolchain(
-    name = "cc-clang-linux",
-    all_files = ":all",
-    compiler_files = ":all",
-    cpu = "k8",
-    dwp_files = ":all",
-    dynamic_runtime_libs = [":empty"],
-    linker_files = ":all",
-    objcopy_files = ":all",
-    static_runtime_libs = [":empty"],
-    strip_files = ":all",
-    toolchain_identifier = "cc-clang-linux",
-)
+#package(default_visibility = ["//visibility:public"])
+#
+#filegroup(name = "empty")
+#
+#filegroup(
+#    name = "all",
+#    srcs = glob(["bin/*"]) + [
+#        "@clang_toolchain//:all",
+#    ],
+#)
+#
+#cc_toolchain_suite(
+#    name = "clang_toolchain",
+#    toolchains = {
+#        "k8": ":cc-clang-linux",
+#        "k8|clang": ":cc-clang-linux",
+#    },
+#)
+#
+#cc_toolchain(
+#    name = "cc-clang-linux",
+#    all_files = ":all",
+#    compiler_files = ":all",
+#    cpu = "k8",
+#    dwp_files = ":all",
+#    dynamic_runtime_libs = [":empty"],
+#    linker_files = ":all",
+#    objcopy_files = ":all",
+#    static_runtime_libs = [":empty"],
+#    strip_files = ":all",
+#    toolchain_identifier = "cc-clang-linux",
+#)

@@ -1,6 +1,6 @@
-build --announce_rc
+# build --announce_rc
 
-#build --crosstool_top=//third_party/clang_toolchain
+# build --crosstool_top=//third_party/clang_toolchain
 build --python_top=//third_party/python2
 
 build --incompatible_remove_native_http_archive=false
@@ -8,7 +8,7 @@ build --incompatible_remove_native_git_repository=false
 
 # Commented out since Bazel itself (specifically the test runner)
 # seems to use binutils in /usr/bin
-#build --sandbox_block_path=/usr
+# build --sandbox_block_path=/usr
 
 build --sandbox_block_path=/opt
 

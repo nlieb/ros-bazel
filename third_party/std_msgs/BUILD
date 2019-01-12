@@ -2,7 +2,7 @@ licenses(["notice"])  # BSD
 
 package(default_visibility = ["//visibility:public"])
 
-load("//bzl:genmsg.bzl", "cc_rosmsg_library")
+load("//bzl:genmsg.bzl", "gencpp_library")
 
 #cc_library(
 #    name = "std_msgs_builtin",
@@ -38,7 +38,7 @@ cc_library(
     ],
 )
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_bool",
     src = "msg/Bool.msg",
     pkg = "std_msgs",
@@ -52,7 +52,7 @@ cc_library(
     deps = [":std_msg_deps"],
 )
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_header",
     src = "msg/Header.msg",
     pkg = "std_msgs",
@@ -68,7 +68,7 @@ cc_library(
 
 # String
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_string",
     src = "msg/String.msg",
     pkg = "std_msgs",

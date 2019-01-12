@@ -2,7 +2,7 @@ licenses(["notice"])  # BSD
 
 package(default_visibility = ["//visibility:public"])
 
-load("//bzl:genmsg.bzl", "cc_rosmsg_library")
+load("//bzl:genmsg.bzl", "gencpp_library")
 
 cc_library(
     name = "std_msg_deps",
@@ -13,7 +13,7 @@ cc_library(
     ],
 )
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_log",
     src = "msg/Log.msg",
     pkg = "rosgraph_msgs",
@@ -30,7 +30,7 @@ cc_library(
     ],
 )
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_topic_statistics",
     src = "msg/TopicStatistics.msg",
     pkg = "rosgraph_msgs",
@@ -47,7 +47,7 @@ cc_library(
     ],
 )
 
-cc_rosmsg_library(
+gencpp_library(
     name = "cc_clock",
     src = "msg/Clock.msg",
     pkg = "rosgraph_msgs",

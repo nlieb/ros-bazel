@@ -13,7 +13,7 @@ def get_transitive_srcs(srcs, deps):
         transitive = [dep[RosmsgFiles].transitive_sources for dep in deps],
     )
 
-def _cc_rosmsg_library_impl(ctx):
+def _gencpp_library_impl(ctx):
     gen_cpp = ctx.executable._gen_cpp
     trans_srcs = get_transitive_srcs([ctx.file.src], ctx.attr.deps)
     pkg = ctx.attr.pkg
@@ -55,8 +55,8 @@ def _cc_rosmsg_library_impl(ctx):
         DefaultInfo(files = transitive_outs),
     ]
 
-cc_rosmsg_library = rule(
-    implementation = _cc_rosmsg_library_impl,
+gencpp_library = rule(
+    implementation = _gencpp_library_impl,
     attrs = {
         "src": attr.label(allow_single_file = [".msg", ".srv"]),
         "pkg": attr.string(mandatory = True),
