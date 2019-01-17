@@ -1,0 +1,131 @@
+# Copyright 2018 Josh Pieper, jjp@pobox.com.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+load("@ros_bazel//third_party:opencv.bzl", "opencv_base", "opencv_module")
+
+licenses(["notice"])  # permissive
+
+package(default_visibility = ["//visibility:public"])
+
+CONFIG = {
+    "modules": [
+        "aruco",
+        "calib3d",
+        "core",
+        "imgcodecs",
+        "imgproc",
+        "videoio",
+    ],
+    "opts": [
+        "sse",
+        "sse2",
+    ],
+}
+
+opencv_base(config = CONFIG)
+
+opencv_module(
+    name = "core",
+    config = CONFIG,
+    dispatched_files = {
+        "stat": [
+            "sse4_2",
+            "avx",
+        ],
+        "mathfuncs_core": [
+            "sse2",
+            "avx",
+            "avx2",
+        ],
+    },
+    deps = [
+        "@eigen",
+        "@net_zlib_zlib//:zlib",
+    ],
+)
+
+opencv_module(
+    name = "imgproc",
+    config = CONFIG,
+    dispatched_files = {
+        "accum": [
+            "sse2",
+            "avx",
+            "neon",
+        ],
+    },
+    deps = [":core"],
+)
+
+opencv_module(
+    name = "features2d",
+    config = CONFIG,
+    deps = [":imgproc"],
+)
+
+opencv_module(
+    name = "calib3d",
+    config = CONFIG,
+    deps = [
+        ":features2d",
+        ":imgproc",
+    ],
+)
+
+opencv_module(
+    name = "imgcodecs",
+    config = CONFIG,
+    deps = [
+        ":core",
+        ":imgproc",
+        "@ros_bazel//third_party/libjpeg",
+        "@ros_bazel//third_party/libpng",
+    ],
+)
+
+opencv_module(
+    name = "aruco",
+    config = CONFIG,
+    deps = [
+        ":calib3d",
+        ":core",
+        ":imgproc",
+    ],
+)
+
+opencv_module(
+    name = "videoio",
+    config = CONFIG,
+    excludes = [
+        "**/cap_winrt*.cpp",
+        "**/cap_winrt/*",
+        "**/cap_xine.cpp",
+        "**/cap_gstreamer.cpp",  # TODO(nlieb): remove this line
+        "**/cap_vfw.cpp",
+        "**/cap_ffmpeg.cpp",
+        "**/cap_ximea.cpp",
+        "**/cap_mfx_reader.cpp",
+        "**/cap_mfx_writer.cpp",
+        "**/cap_mfx_common.cpp",
+        "**/cap_unicap.cpp",
+        "**/cap_giganetix.cpp",
+        "**/cap_qt.cpp",
+    ],
+    deps = [
+        ":core",
+        ":imgcodecs",
+        ":imgproc",
+        "@org_bzip_bzip2//:bz2lib",
+    ],
+)

@@ -1,3 +1,19 @@
+workspace(name = "ros_bazel")
+
+SOURCEFORGE_MIRRORS = [
+    "phoenixnap",
+    "newcontinuum",
+    "cfhcable",
+    "superb-sea2",
+    "cytranet",
+    "iweb",
+    "gigenet",
+    "ayera",
+    "astuteinternet",
+    "pilotfiber",
+    "svwh",
+]
+
 new_http_archive(
     name = "clang_toolchain",
     build_file = "third_party/BUILD.clang-toolchain",
@@ -33,20 +49,6 @@ new_http_archive(
     ],
 )
 
-SOURCEFORGE_MIRRORS = [
-    "phoenixnap",
-    "newcontinuum",
-    "cfhcable",
-    "superb-sea2",
-    "cytranet",
-    "iweb",
-    "gigenet",
-    "ayera",
-    "astuteinternet",
-    "pilotfiber",
-    "svwh",
-]
-
 new_http_archive(
     name = "org_lzma_lzma",
     build_file = "third_party/BUILD.lzma",
@@ -72,5 +74,25 @@ new_http_archive(
     urls = [
         "https://%s.dl.sourceforge.net/project/boost/boost/1.67.0/boost_1_67_0.tar.gz" % m
         for m in SOURCEFORGE_MIRRORS
+    ],
+)
+
+new_http_archive(
+    name = "opencv",
+    build_file = "third_party/BUILD.opencv",
+    sha256 = "4eef85759d5450b183459ff216b4c0fa43e87a4f6aa92c8af649f89336f002ec",
+    strip_prefix = "opencv-3.4.3",
+    urls = [
+        "https://github.com/opencv/opencv/archive/3.4.3.tar.gz",
+    ],
+)
+
+new_http_archive(
+    name = "eigen",
+    build_file = "third_party/BUILD.eigen",
+    sha256 = "dd254beb0bafc695d0f62ae1a222ff85b52dbaa3a16f76e781dce22d0d20a4a6",
+    strip_prefix = "eigen-eigen-5a0156e40feb",
+    urls = [
+        "http://bitbucket.org/eigen/eigen/get/3.3.4.tar.bz2",
     ],
 )

@@ -34,7 +34,7 @@ cc_library(
         "pngpriv.h",
         "pngstruct.h",
         "pnglibconf.h",
-        "private/config.h",
+        "config.h",  # FIXME: should be in private directory
         "png.c",
         "pngerror.c",
         "pngget.c",
@@ -80,7 +80,7 @@ cc_library(
 )
 
 autoconf_config(
-    name = "private/config.h",
+    name = "config.h",  # FIXME: should be in private directory
     src = "config.h.in",
     defines = autoconf_standard_defines + select({
         "//bzl/constraints:arm": [
