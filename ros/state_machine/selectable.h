@@ -62,42 +62,6 @@ private:
 };
 
 
-class Select {
-public:
-    explicit Select(std::vector<Selectable*> waitables) {
-      int counter = 0;
-      for(auto& waitable : waitables) {
-        for(auto& waitfd : waitable->get_waitfds()) {
-          pollfds.push_back({waitfd, POLLIN, 0});
-          counter++;
-        }
-        waitable_pollfd_poses.push_back(counter);
-      }
-    }
-
-    int select() {
-      uint64_t u = 1;
-      poll(&pollfds[0], pollfds.size(), -1);
-
-      int i = 0;
-      for(; i < (int)pollfds.size(); ++i) {
-        if(pollfds[i].revents) {
-          do { read(pollfds[i].fd, &u, sizeof(uint64_t)); } while (errno != EAGAIN);
-          break;
-        }
-      }
-      for(int j = 0; j < (int)waitable_pollfd_poses.size(); ++j)
-        if(i < (int)waitable_pollfd_poses[j])
-          return j;
-      return -1;
-    }
-
-private:
-    std::vector<struct pollfd> pollfds;
-    std::vector<int> waitable_pollfd_poses;
-};
-
-
 // Convert to pointer if it's a ref: https://stackoverflow.com/a/14466705
 template<typename T>
 T* ptr(T& obj) { return &obj; }
