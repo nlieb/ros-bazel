@@ -13,7 +13,7 @@
 #include "selectable.h"
 
 
-class WorldState : public EventSelectable {
+class WorldState : public slct::EventSelectable {
 public:
     void update_ping() {
       std::lock_guard<std::mutex> guard(m_);
@@ -42,31 +42,32 @@ struct StateMachineData {
 };
 
 
-int send_bool(Context& ctx, std::shared_ptr<StateMachineData>& sm_data) {
-  printf("Sending service call\n");
-  std_srvs::SetBool set_bool{}; // default false
-  ServiceCall<std_srvs::SetBool> set_bool_call(sm_data->toggle_client, set_bool);
+int call_set_bool(slct::Context& ctx, std::shared_ptr<StateMachineData>& sm_data) {
+  printf("Sending SetBool service call\n");
 
-  switch (Select({&ctx, &set_bool_call}).select()) {
+  auto service_sel = slct::ServiceCallSelectable::create();
+  std_srvs::SetBool set_bool{}; // default false
+  service_sel->call(sm_data->toggle_client, set_bool);
+
+  switch (select(ctx, service_sel)) {
     case 0:
       printf("Timeout\n");
       return -1;
     case 1:
-      printf("Service call completed with success=%d message=%s\n",
-             set_bool_call.success,
+      printf("SetBool completed with success=%d message=%s\n",
+             service_sel->success,
              set_bool.response.message.c_str());
-      return set_bool_call.success;
-    default:
-      return -1;
+      return service_sel->success;
   }
+  assert(false);
 }
 
 
-int send_bools_until_timeout(Context& ctx, std::shared_ptr<StateMachineData>& sm_data) {
+int send_bools_until_timeout(slct::Context& ctx, std::shared_ptr<StateMachineData>& sm_data) {
   int bools_sent = 0, res;
 
   while(true) {
-    if((res = send_bool(ctx, sm_data)) != -1) {
+    if((res = call_set_bool(ctx, sm_data)) != -1) {
       printf("Result: %d\n", res);
       bools_sent += res;
     } else {
@@ -77,7 +78,7 @@ int send_bools_until_timeout(Context& ctx, std::shared_ptr<StateMachineData>& sm
 
 
 /*[[noreturn]] */void state_machine_thread(std::shared_ptr<StateMachineData> sm_data) {
-  Context ctx(10);
+  slct::Context ctx(10);
 
   int bools_sent = send_bools_until_timeout(ctx, sm_data);
   printf("Sent %d bools before timing out\n", bools_sent);
